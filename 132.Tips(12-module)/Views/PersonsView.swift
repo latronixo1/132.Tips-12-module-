@@ -31,18 +31,18 @@ class PersonsView: UIView {
    }()
     
     //поле ввода количества персон
-    let summTextField: UITextField = {
-        let element = UITextField()
-        element.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1)
-        element.layer.cornerRadius = 10
-        element.textColor = .black
-        element.font = UIFont(name: "Arial", size: 48)
-        element.textAlignment = .center
-        element.keyboardType = .numberPad   //клавиатура без букв (с компа мы можем ввести все что угодно)
-
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+//    let summTextField: UITextField = {
+//        let element = UITextField()
+//        element.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1)
+//        element.layer.cornerRadius = 10
+//        element.textColor = .black
+//        element.font = UIFont(name: "Arial", size: 48)
+//        element.textAlignment = .center
+//        element.keyboardType = .numberPad   //клавиатура без букв (с компа мы можем ввести все что угодно)
+//
+//        element.translatesAutoresizingMaskIntoConstraints = false
+//        return element
+//    }()
     
     lazy var minusButton: UIButton = {
         let element = UIButton(type: .system)   //иниализатор, чтобы кнопка щелкала красива

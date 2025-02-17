@@ -66,6 +66,7 @@ class MainController: UIViewController {
     //объявляем View, размещенные в других файлах
     let totalBillView = TotalBillView()
     let personsView = PersonsView()
+    let tipsView = TipsView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +83,7 @@ class MainController: UIViewController {
             view.addSubview(totalBillView)  //вью с лейблом "Сумма по чеку" и полем ввода
             view.addSubview(personsView)  //вью с надписью "Количество персон" и возможностью установки их количества
             view.addSubview(calculateButton)  //кнопка "Рассчитать"
-            
+            view.addSubview(tipsView)
 
       }
     
@@ -131,6 +132,12 @@ class MainController: UIViewController {
               personsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
               personsView.heightAnchor.constraint(equalToConstant: 130),
 
+              //вью с надписью "Чаевые" и UICollectionView с выбором размера чаевых
+              tipsView.topAnchor.constraint(equalTo: personsView.bottomAnchor, constant: 10),
+              tipsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+              tipsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+              tipsView.heightAnchor.constraint(equalToConstant: 130),
+              
               //констрейнты кнопки "Рассчитать"
               calculateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
               calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
