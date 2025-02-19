@@ -30,7 +30,7 @@ class MainController: UIViewController {
       //надпись вторая
       let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Введите сумму по чеку и нажмите \"посчитать\""
+        label.text = "Введите сумму по чеку и нажмите \"рассчитать\""
         label.textColor = .black
         label.font = UIFont(name: "Arial", size: 15)
         label.adjustsFontSizeToFitWidth = true //Настройка размера шрифта по ширине
@@ -57,7 +57,7 @@ class MainController: UIViewController {
         element.backgroundColor = #colorLiteral(red: 0.4426239431, green: 0.1398270428, blue: 0.4386208057, alpha: 1)
         element.titleLabel?.font = UIFont(name: "Arial", size: 20)
         element.layer.cornerRadius = 10
-        
+        element.addTarget(self, action: #selector(calculateButtonTapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -74,6 +74,9 @@ class MainController: UIViewController {
         
         setupViews()
         setConstraints()
+        
+        //скрыть экранную клавиатуру при потери фокуса с поля ввода "Всего по чеку"
+        addTap()
     }
     
         func setupViews() {
@@ -86,6 +89,31 @@ class MainController: UIViewController {
             view.addSubview(tipsView)
 
       }
+    
+    @objc func calculateButtonTapped () {
+        //извлекаем сумму по чеку через guard (он нужен, чтобы если в поле ввода ничего нет или умудрились ввести не числовое значение, то приложение не крашилось), после запятой переводим её в Int (сразу если делать, то Xcode ругается)
+        guard let totalBill = totalBillView.summTextField.text, let totalBillInt = Int(totalBill) else { return }
+        let summ = totalBillInt + totalBillInt * tipsView.tipsCount / 100
+        let result = summ / personsView.counter
+        
+        if result == 0 {
+            descriptionLabel.text = "Введите сумму по чеку и нажмите \"рассчитать\""
+            descriptionLabel.textColor = .red
+        } else {
+            descriptionLabel.text = "\(result) с каждого"
+            descriptionLabel.textColor = .black
+        }
+    }
+    
+    //скрыть экранную клавиатуру при потери фокуса с поля ввода "Всего по чеку"
+    func addTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tap.cancelsTouchesInView = false    //если это не написать, в нашем ViewCollection ячейки будут нажиматься только по долгому нажатию
+        view.addGestureRecognizer(tap)  //перевод "добавить средство распознавания жестов"
+    }
+    @objc func hideKeyboard () {
+        view.endEditing(true)
+    }
     
     // MARK: Констрейнты
       func setConstraints() {

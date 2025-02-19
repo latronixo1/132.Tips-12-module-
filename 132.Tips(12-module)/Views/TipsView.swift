@@ -30,7 +30,9 @@ class TipsView: UIView {
         return collectionView
     } ()
     
-    let tipsArray = ["0%", "5%", "10%", "20%"]
+    let tipsArray = [0, 5, 10, 20]
+    //номер выбранной ячейки с чаевыми
+    var tipsCount = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)    //frame изначально будет нулевой (позже его определим)
@@ -52,19 +54,20 @@ class TipsView: UIView {
         collectionView.register(TipsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
-    //определяем делагатов, они будут определять, кто будет управлять коллекцией
-    func setDelegates() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    //метод нажатия на ячейку (didSelectItemAt)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        tipsCount = tipsArray[indexPath.row]
     }
-
+    
 }
 
 extension TipsView: UICollectionViewDataSource {
+    //метод, в котором мы задаем количество ячеек в секции
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         4       //количество ячеек в коллекции (а точнее будем 4 раза переиспользовать одну ячейку)
     }
     
+    //метод, в котором мы указываем, чем ячейки будут отличаться друг от друга
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //безопасно переиспользуем ячейку. Её идентификатор "cell", индекс - indexPath
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TipsCollectionViewCell else { //если нам удастся прокастить cell до TipsCollectionViewCell, то круто. А если нет, то вернем голый UICollectionViewCell. Это нужно для того, чтобы если прокастить не удалось, приложение не крашилось, а просто криво работало.
@@ -74,15 +77,16 @@ extension TipsView: UICollectionViewDataSource {
         //формат индексации ячеек:  [indexPath.section, indexPath.row] - у нас это [0,0], [0,1], [0,2], [0,3], где indexPath.section - номер секции (строки, ряда), у нас он равен 0 (она у нас одна), indexPath.row - номер ячейки (столбца, колонки), у нас он 0-3
         
         //в надпись procentLabel (определена в файле TipsCollectionViewCell, они будут размещаться над каждой ячейкой нашего UICollectionView) записываем элементы массива tipsArray, номер элемента в соответствии с номером ячейки, которая содержится в indexPath.row.
-        cell.procentLabel.text = tipsArray[indexPath.row]
+        cell.procentLabel.text = String(tipsArray[indexPath.row]) + "%"
         return cell
     }
 }
 
 extension TipsView: UICollectionViewDelegate {
-    //метод нажатия на ячейку (didSelectItemAt)
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+    //определяем делагатов, они будут определять, кто будет управлять коллекцией
+    func setDelegates() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 }
 

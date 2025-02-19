@@ -26,7 +26,9 @@ class TotalBillView: UIView {
         element.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1)
         element.layer.cornerRadius = 10
         element.textColor = .black
+        element.tintColor = #colorLiteral(red: 0.4426239431, green: 0.1398270428, blue: 0.4386208057, alpha: 1)     //цвет вертикальной мигающей палки в поле ввода
         element.font = UIFont(name: "Arial", size: 48)
+        element.text = "12000"
         element.textAlignment = .center
         element.keyboardType = .numberPad   //клавиатура без букв (с компа мы можем ввести все что угодно)
 

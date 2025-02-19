@@ -30,6 +30,7 @@ class PersonsView: UIView {
         return element
    }()
     
+    
     lazy var minusButton: UIButton = {
         let element = UIButton(type: .system)   //иниализатор, чтобы кнопка щелкала красива
         element.setTitle("-", for: .normal)
