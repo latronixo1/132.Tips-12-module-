@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "5ThousandRublesAreBeingTorn.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "5ThousandRublesAreBeingTorn@2x.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "5ThousandRublesAreBeingTorn@3x.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
