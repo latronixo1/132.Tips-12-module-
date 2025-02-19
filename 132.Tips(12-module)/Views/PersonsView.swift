@@ -30,26 +30,12 @@ class PersonsView: UIView {
         return element
    }()
     
-    //поле ввода количества персон
-//    let summTextField: UITextField = {
-//        let element = UITextField()
-//        element.backgroundColor = #colorLiteral(red: 0.9561659694, green: 0.9591339231, blue: 0.9530903697, alpha: 1)
-//        element.layer.cornerRadius = 10
-//        element.textColor = .black
-//        element.font = UIFont(name: "Arial", size: 48)
-//        element.textAlignment = .center
-//        element.keyboardType = .numberPad   //клавиатура без букв (с компа мы можем ввести все что угодно)
-//
-//        element.translatesAutoresizingMaskIntoConstraints = false
-//        return element
-//    }()
-    
     lazy var minusButton: UIButton = {
         let element = UIButton(type: .system)   //иниализатор, чтобы кнопка щелкала красива
         element.setTitle("-", for: .normal)
         element.tintColor = #colorLiteral(red: 0.4513477087, green: 0.4857000113, blue: 0.5633345246, alpha: 1)
         element.titleLabel?.font = UIFont(name: "Arial", size: 60)
-        
+        element.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -59,7 +45,7 @@ class PersonsView: UIView {
         element.setTitle("+", for: .normal)
         element.tintColor = #colorLiteral(red: 0.4513477087, green: 0.4857000113, blue: 0.5633345246, alpha: 1)
         element.titleLabel?.font = UIFont(name: "Arial", size: 80)
-        
+        element.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -75,6 +61,9 @@ class PersonsView: UIView {
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
+    
+    //количество гостей
+    var counter = 2
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,6 +86,23 @@ class PersonsView: UIView {
         backgroundGrayView.addSubview(minusButton)
         backgroundGrayView.addSubview(plusButton)
         backgroundGrayView.addSubview(counterLabel)
+    }
+    
+    @objc func minusButtonTapped () {
+        if counter == 2 {
+            minusButton.isEnabled = false
+        }
+        counter -= 1
+        counterLabel.text = "\(counter)"
+    }
+    
+    @objc func plusButtonTapped () {
+        if counter >= 1 {
+            minusButton.isEnabled = true
+        }
+        counter += 1
+        counterLabel.text = "\(counter)"
+
     }
     
     func setConstraints() {

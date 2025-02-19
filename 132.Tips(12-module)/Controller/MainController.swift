@@ -139,7 +139,7 @@ class MainController: UIViewController {
               tipsView.heightAnchor.constraint(equalToConstant: 130),
               
               //констрейнты кнопки "Рассчитать"
-              calculateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+              calculateButton.topAnchor.constraint(equalTo: tipsView.bottomAnchor, constant: 5),
               calculateButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
               calculateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
               calculateButton.heightAnchor.constraint(equalToConstant: 60),

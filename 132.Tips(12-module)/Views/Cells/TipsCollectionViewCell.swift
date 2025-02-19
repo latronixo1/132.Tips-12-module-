@@ -20,6 +20,18 @@ class TipsCollectionViewCell: UICollectionViewCell {
         return element
     }()
     
+    //встроенная переменная isSelected. При нажатии на ячейку она становится true
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {     //если она выбрана
+                layer.borderWidth = 3
+                layer.borderColor = #colorLiteral(red: 0.4426239431, green: 0.1398270428, blue: 0.4386208057, alpha: 1)
+            } else {
+                layer.borderWidth = 0
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()

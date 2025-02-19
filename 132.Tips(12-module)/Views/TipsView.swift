@@ -30,7 +30,7 @@ class TipsView: UIView {
         return collectionView
     } ()
     
-    let tipsArray = ["5%", "10%", "15%", "20%"]
+    let tipsArray = ["0%", "5%", "10%", "20%"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)    //frame изначально будет нулевой (позже его определим)
@@ -52,7 +52,12 @@ class TipsView: UIView {
         collectionView.register(TipsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
-    
+    //определяем делагатов, они будут определять, кто будет управлять коллекцией
+    func setDelegates() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+
 }
 
 extension TipsView: UICollectionViewDataSource {
@@ -66,24 +71,23 @@ extension TipsView: UICollectionViewDataSource {
 
             return UICollectionViewCell()
         }
-        //формат индексации ячеек: [0,0], [0,1], [0,2], [0,3], где 0 - номер секции (строки, ряда) (она у нас одна), 0-3 - номер ячейки (столбца, колонки)
+        //формат индексации ячеек:  [indexPath.section, indexPath.row] - у нас это [0,0], [0,1], [0,2], [0,3], где indexPath.section - номер секции (строки, ряда), у нас он равен 0 (она у нас одна), indexPath.row - номер ячейки (столбца, колонки), у нас он 0-3
         
+        //в надпись procentLabel (определена в файле TipsCollectionViewCell, они будут размещаться над каждой ячейкой нашего UICollectionView) записываем элементы массива tipsArray, номер элемента в соответствии с номером ячейки, которая содержится в indexPath.row.
         cell.procentLabel.text = tipsArray[indexPath.row]
         return cell
     }
 }
 
 extension TipsView: UICollectionViewDelegate {
-    //определяем делагатов, они будут определять, кто будет управлять коллекцией
-    func setDelegates() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+    //метод нажатия на ячейку (didSelectItemAt)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
     }
-
 }
 
 extension TipsView: UICollectionViewDelegateFlowLayout {
-    //задаем размер ячеек в CollectionView
+    //метод, задающий размер ячеек (layout)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //здесь нам нужно вернуть размер ячейки
         //Просто ширину и высоту делаем равной ширине данного нам вью (это же рыбка в аквариуме, ей не известен размер аквариума), разделенной на 4.5 (количество ячеек + 0.5 (на расстояние между ячейками))
